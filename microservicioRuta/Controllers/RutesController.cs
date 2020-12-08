@@ -1,10 +1,9 @@
-﻿using microservicioRuta.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using microservicioRuta.Repository;
+using microservicioRuta.Entity;
 
 namespace microservicioRuta.Controllers
 {
@@ -43,6 +42,24 @@ namespace microservicioRuta.Controllers
 		public async Task<ActionResult<Ruta>> GetRuta(string id)
 		{
 			var ruta = await _repositoryRutes.GetRuta(id);
+
+			ruta.numConsultes = ruta.numConsultes + 1;
+
+			await _repositoryRutes.Update(ruta);
+
+			if (ruta == null)
+			{
+				return NotFound();
+			}
+			return Ok(ruta);
+		}
+
+		[HttpGet("top")]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public async Task<ActionResult<Ruta>> Top10()
+		{
+			var ruta = await _repositoryRutes.Top10();
 
 			if (ruta == null)
 			{

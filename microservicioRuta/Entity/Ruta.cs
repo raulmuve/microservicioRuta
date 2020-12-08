@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace microservicioRuta.Models
+namespace microservicioRuta.Entity
 {
 	public class Ruta
 	{

@@ -1,7 +1,7 @@
-﻿using microservicioRuta.Models;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
-namespace microserviceRefugi.Models
+
+namespace microservicioRuta.Entity
 {
 	public class MongoDBContext
 	{
