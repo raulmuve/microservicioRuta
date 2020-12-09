@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using microservicioRuta.Entity;
+using microservicioRuta.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using microservicioRuta.Entity;
 
 namespace microservicioRuta.Repository
 {
 	public interface IRepositoryRutes
 	{
-		Task Add(Ruta ruta);
+		Task<Ruta> Add(RutaPostInput ruta);
 
 		Task<Ruta> GetRuta(string id);
 
 		Task Update(Ruta ruta);
 
-		Task<List<Ruta>> Top10();
+		Task<List<Ruta>> TopTen();
 	}
 }

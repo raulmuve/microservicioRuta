@@ -1,6 +1,5 @@
 ﻿using MongoDB.Driver;
 
-
 namespace microservicioRuta.Entity
 {
 	public class MongoDBContext

@@ -33,3 +33,8 @@ D:\Uoc\TFM\microservicioRuta\microservicioRuta\obj\Debug\netcoreapp3.1\microserv
 D:\Uoc\TFM\microservicioRuta\microservicioRuta\obj\Debug\netcoreapp3.1\microservicioRuta.genruntimeconfig.cache
 D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
 D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
+D:\Uoc\TFM\microservicioRuta\microservicioRuta\obj\Debug\netcoreapp3.1\microservicioRuta.MvcApplicationPartsAssemblyInfo.cs
+D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Uoc\TFM\microservicioRuta\microservicioRuta\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll

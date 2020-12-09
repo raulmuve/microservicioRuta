@@ -1,12 +1,10 @@
-using microservicioRuta.Repository;
 using microservicioRuta.Entity;
+using microservicioRuta.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Threading;
-
 
 namespace microservicioRuta
 {
@@ -25,6 +23,15 @@ namespace microservicioRuta
 			services.AddControllers();
 			services.AddScoped<IRepositoryRutes, RepositoryRutes>();
 			services.AddSingleton<MongoDBContext>();
+
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+				{
+					Title = "TFM 2020 - Microservei Cims",
+					Version = "v1"
+				});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +44,13 @@ namespace microservicioRuta
 
 			app.UseHttpsRedirection();
 
+			app.UseSwagger();
+
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Values API V1");
+			});
+
 			app.UseRouting();
 
 			app.UseAuthorization();
@@ -45,11 +59,6 @@ namespace microservicioRuta
 			{
 				endpoints.MapControllers();
 			});
-
-			//Creamos un hilo nuevo para el receptor de los mensajes (RabbitMQ)
-			RabbitMQ.Rabbit rabbit1 = new RabbitMQ.Rabbit();
-			Thread rabbit = new Thread(rabbit1.consumidor);
-			rabbit.Start();
 		}
 	}
 }
