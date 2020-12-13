@@ -11,8 +11,12 @@ namespace microservicioRuta.Repository
 
 		Task<Ruta> GetRuta(string id);
 
-		Task Update(Ruta ruta);
+		Task<Ruta> Update(Ruta ruta);
+
+		Task<Ruta> Delete(Ruta ruta);
 
 		Task<List<Ruta>> TopTen();
+
+		Task<List<Ruta>> SearchAll();
 	}
 }

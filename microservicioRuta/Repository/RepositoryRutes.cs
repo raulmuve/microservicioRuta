@@ -56,7 +56,7 @@ namespace microservicioRuta.Repository
 			try
 			{
 				var sortDefinition = Builders<Ruta>.Sort.Descending(a => a.numConsultes);
-				return await db.Rutes.Find(_ => true).Sort(sortDefinition).Limit(10).ToListAsync();
+				return await db.Rutes.Find(g => g.actiu == true).Sort(sortDefinition).Limit(10).ToListAsync();
 
 			}
 			catch (Exception)
@@ -66,24 +66,59 @@ namespace microservicioRuta.Repository
 			}
 		}
 
-		public async Task Update(Ruta ruta)
+		public async Task<Ruta> Update(Ruta rutaInput)
 		{
 			try
 			{
-				ruta.dataModificacio = DateTime.Now;
-				await db.Rutes.ReplaceOneAsync(filter: g => g.id == ruta.id, replacement: ruta);
+				rutaInput.dataModificacio = DateTime.Now;
+				rutaInput.actiu = true;
+				await db.Rutes.ReplaceOneAsync(filter: g => g.id == rutaInput.id, replacement: rutaInput);
 			}
 			catch (Exception)
 			{
 
 				throw;
 			}
+
+			return rutaInput;
 		}
 
 		public Ruta LastDocumentInserted()
 		{
 			var sortDefinition = Builders<Ruta>.Sort.Descending(a => a.id);
 			return db.Rutes.Find(_ => true).Sort(sortDefinition).Limit(1).FirstOrDefault();
+		}
+
+		public async Task<Ruta> Delete(Ruta rutaInput)
+		{
+			try
+			{
+				rutaInput.dataModificacio = DateTime.Now;
+				rutaInput.actiu = false;
+				await db.Rutes.ReplaceOneAsync(filter: g => g.id == rutaInput.id, replacement: rutaInput);
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+
+			return rutaInput;
+		}
+
+		public async Task<List<Ruta>> SearchAll()
+		{
+			try
+			{
+				var sortDefinition = Builders<Ruta>.Sort.Ascending(a => a.nom);
+				return await db.Rutes.Find(a => a.actiu == true).Sort(sortDefinition).ToListAsync();
+
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
 		}
 	}
 }
