@@ -41,7 +41,7 @@ namespace microservicioRuta.Controllers
 
 			if (rutaInput.IdCim != null)
 			{
-				SendMessageToMicroserveiCims(rutaInput.IdCim);
+				SendMessageToMicroserveiCims("addRuta",rutaInput.IdCim);
 			} 
 			
 			if (rutaInput.IdRefugi != null)
@@ -52,7 +52,7 @@ namespace microservicioRuta.Controllers
 			return Ok(ruta);
 		}
 
-		[HttpPost("{id}")]
+		[HttpPost("modify")]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status202Accepted)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -71,7 +71,7 @@ namespace microservicioRuta.Controllers
 
 			if (rutaInput.idCim != null)
 			{
-				SendMessageToMicroserveiCims(rutaInput.idCim);
+				SendMessageToMicroserveiCims("addRuta", rutaInput.idCim);
 			}
 
 			if (rutaInput.idRefugi != null)
@@ -103,15 +103,15 @@ namespace microservicioRuta.Controllers
 
 				if (rutaInput.idCim != null)
 				{
-					SendMessageToMicroserveiCims(rutaInput.idCim);
+					SendMessageToMicroserveiCims("deleteRuta", rutaInput.idCim);
 				}
 
 				if (rutaInput.idRefugi != null)
 				{
-					SendMessageToMicroServeiRefugis("DeleteRuta", rutaInput.idRefugi, id);
+					SendMessageToMicroServeiRefugis("deleteRuta", rutaInput.idRefugi, id);
 				}
 
-				return CreatedAtAction("GetRuta", new { id = id }, rutaInput);
+				return CreatedAtAction("Search", new { id = id }, rutaInput);
 			}
 			catch (Exception ex)
 			{
@@ -158,6 +158,36 @@ namespace microservicioRuta.Controllers
 			return Ok(ruta);
 		}
 
+		[HttpGet("bycim/{id}")]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<ActionResult<Ruta>> SearchByCim(string id)
+		{
+			var ruta = await _repositoryRutes.SearchByCim(id);
+
+			if (ruta == null)
+			{
+				return NotFound();
+			}
+			return Ok(ruta);
+		}
+
+		[HttpGet("byrefugi/{id}")]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<ActionResult<Ruta>> SearchByRefugi(string id)
+		{
+			var ruta = await _repositoryRutes.SearchByRefugi(id);
+
+			if (ruta == null)
+			{
+				return NotFound();
+			}
+			return Ok(ruta);
+		}
+
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -175,7 +205,7 @@ namespace microservicioRuta.Controllers
 
 
 
-		private void SendMessageToMicroserveiCims(string idcim)
+		private void SendMessageToMicroserveiCims(string Operacio, string idcim)
 		{
 			var factory = new ConnectionFactory() { HostName = "localhost" };
 			using (var connection = factory.CreateConnection())
@@ -184,7 +214,7 @@ namespace microservicioRuta.Controllers
 				{
 					String cola = "MicroserveiCims";
 					channel.QueueDeclare(cola, false, false, false, null);
-					String message = string.Format("{0}", idcim);
+					String message = string.Format("{0};{1}", Operacio, idcim);
 
 					var body = Encoding.UTF8.GetBytes(message);
 

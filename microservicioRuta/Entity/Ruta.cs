@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace microservicioRuta.Entity
 {
@@ -31,10 +32,10 @@ namespace microservicioRuta.Entity
 		[BsonElement("NumConsultes")]
 		public int numConsultes { get; set; }
 
-		[BsonElement("IdRefugi")]
+		[BsonElement("idRefugi")]
 		public String  idRefugi { get; set; }
 
-		[BsonElement("IdCim")]
+		[BsonElement("idCim")]
 		public String idCim { get; set; }
 
 		[BsonElement("UrlPic")]

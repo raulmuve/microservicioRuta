@@ -18,5 +18,9 @@ namespace microservicioRuta.Repository
 		Task<List<Ruta>> TopTen();
 
 		Task<List<Ruta>> SearchAll();
-	}
+
+		Task<List<Ruta>> SearchByCim(string idCim);
+
+		Task<List<Ruta>> SearchByRefugi(string idRefugi);
+	}	
 }

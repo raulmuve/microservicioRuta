@@ -37,6 +37,28 @@ namespace microservicioRuta.Repository
 			return LastDocumentInserted();
 		}
 
+
+		public async Task<Ruta> Update(Ruta rutaInput)
+		{
+			try
+			{
+				if (rutaInput.id == null) return null;
+
+				rutaInput.dataModificacio = DateTime.Now;
+				rutaInput.actiu = true;
+				await db.Rutes.ReplaceOneAsync(filter: g => g.id == rutaInput.id, replacement: rutaInput);
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+
+			return rutaInput;
+		}
+
+
+
 		public Task<Ruta> GetRuta(string id)
 		{
 			try
@@ -66,22 +88,6 @@ namespace microservicioRuta.Repository
 			}
 		}
 
-		public async Task<Ruta> Update(Ruta rutaInput)
-		{
-			try
-			{
-				rutaInput.dataModificacio = DateTime.Now;
-				rutaInput.actiu = true;
-				await db.Rutes.ReplaceOneAsync(filter: g => g.id == rutaInput.id, replacement: rutaInput);
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-
-			return rutaInput;
-		}
 
 		public Ruta LastDocumentInserted()
 		{
@@ -113,6 +119,36 @@ namespace microservicioRuta.Repository
 				var sortDefinition = Builders<Ruta>.Sort.Ascending(a => a.nom);
 				return await db.Rutes.Find(a => a.actiu == true).Sort(sortDefinition).ToListAsync();
 
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<Ruta>> SearchByCim(string idCim)
+		{
+			try
+			{
+				var filter = Builders<Ruta>.Filter.ElemMatch(x => x.idCim, x => x.Equals(idCim));
+
+				return await db.Rutes.Find(filter).ToListAsync();
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<Ruta>> SearchByRefugi(string idRefugi)
+		{
+			try
+			{
+				var filter = Builders<Ruta>.Filter.ElemMatch(x => x.idRefugi, x => x.Equals(idRefugi));
+
+				return await db.Rutes.Find(filter).ToListAsync();
 			}
 			catch (Exception)
 			{

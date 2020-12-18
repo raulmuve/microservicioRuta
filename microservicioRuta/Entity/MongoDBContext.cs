@@ -7,7 +7,7 @@ namespace microservicioRuta.Entity
 		//Definicio constants
 		private const string ConnectionString = "mongodb://localhost:27017/";
 		private const string Database = "serveiRutes";
-		private const string ColeccioRutes = "Rutes";
+		private const string ColeccioRutes = "rutes";
 
 		private readonly IMongoDatabase _mongoDB;
 
