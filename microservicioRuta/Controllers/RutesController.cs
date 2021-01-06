@@ -207,7 +207,7 @@ namespace microservicioRuta.Controllers
 
 		private void SendMessageToMicroserveiCims(string Operacio, string idcim)
 		{
-			var factory = new ConnectionFactory() { HostName = "localhost" };
+			var factory = new ConnectionFactory() { HostName = "rabbitmq", UserName = "rabbitmq", Password = "rabbitmq" };
 			using (var connection = factory.CreateConnection())
 			{
 				using (var channel = connection.CreateModel())
@@ -225,7 +225,7 @@ namespace microservicioRuta.Controllers
 
 		private void SendMessageToMicroServeiRefugis(String Operacio, String idRefugi, String idRuta)
 		{
-			var factory = new ConnectionFactory() { HostName = "localhost" };
+			var factory = new ConnectionFactory() { HostName = "rabbitmq", UserName = "rabbitmq", Password  = "rabbitmq" };
 			using (var connection = factory.CreateConnection())
 			{
 				using (var channel = connection.CreateModel())

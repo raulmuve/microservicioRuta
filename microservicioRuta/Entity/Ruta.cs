@@ -32,10 +32,10 @@ namespace microservicioRuta.Entity
 		[BsonElement("NumConsultes")]
 		public int numConsultes { get; set; }
 
-		[BsonElement("idRefugi")]
+		[BsonElement("IdRefugi")]
 		public String  idRefugi { get; set; }
 
-		[BsonElement("idCim")]
+		[BsonElement("IdCim")]
 		public String idCim { get; set; }
 
 		[BsonElement("UrlPic")]
